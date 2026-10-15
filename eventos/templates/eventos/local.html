@@ -1,11 +1,11 @@
-{% extends 'base.html' %}
+{% extends 'eventos/base.html' %}
 
 {% block title %}{{ evento.titulo }}{% endblock %}
 
 {% block content %}
 <article class="evento-detalhe">
     <h1>{{ evento.titulo }}</h1>
-    <p><strong>Data:</strong> {{ evento.data|date:"d/m/Y H:i" }}</p>
+    <p><strong>Data:</strong> {{ evento.data_inicio }}</p>
     <p><strong>Vagas Restantes:</strong> {{ evento.vagas_restantes }}</p>
 
     <!-- Exibição Condicional do Relatório -->
@@ -31,6 +31,6 @@
         </ul>
     </section>
 
-    <p><a href="{% url 'eventos:index' %}" class="btn-voltar">&larr; Voltar para a listagem</a></p>
+    <p><a href="{% url 'index' %}" class="btn-voltar">&larr; Voltar para a listagem</a></p>
 </article>
 {% endblock %}

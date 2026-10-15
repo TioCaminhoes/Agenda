@@ -1,18 +1,19 @@
-{% extends 'base.html' %}
+{% extends 'eventos/base.html' %}
 
 {% block title %}{{ evento.titulo }}{% endblock %}
 
 {% block content %}
 <article class="evento-detalhe">
     <h1>{{ evento.titulo }}</h1>
-    <p><strong>Data:</strong> {{ evento.data|date:"d/m/Y H:i" }}</p>
+    <p>{{ evento.data_inicio }}</p>
     <p><strong>Vagas Restantes:</strong> {{ evento.vagas_restantes }}</p>
 
-    <!-- Exibição Condicional do Relatório -->
-    {% if evento.relatorio %}
+    {% if evento.relatorios %}
         <section class="relatorio-box">
-            <h2>Relatório do Evento</h2>
-            <p>{{ evento.relatorio }}</p>
+            <h2>Participantes Presentes</h2>
+            <p>{{ evento.relatorios.presentes }}</p>
+            <h2>Observações</h2>
+            <p>{{ evento.relatorios.observações }}</p>
         </section>
     {% endif %}
     <button class="esconder-atividades">Ocultar Atividades</button>
@@ -22,8 +23,8 @@
         <ul>
             {% for atividade in evento.atividades.all %}
                 <li>
-                    <strong>{{ atividade.nome }}</strong> - {{ atividade.horario|date:"H:i" }}
-                    <p>{{ atividade.descricao }}</p>
+                    <strong>{{ atividade.titulo }}</strong> - {{ atividade.horário }}
+                    <p>{{ atividade.palestrante }}</p>
                 </li>
             {% empty %}
                 <li><em>Nenhuma atividade cadastrada para este evento ainda.</em></li>
