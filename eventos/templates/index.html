@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}Próximos Eventos{% endblock %}
+
+{% block content %}
+
+{% load static %}
+<h1>Próximos Eventos</h1>
+
+<!-- Filtro de Categorias -->
+<div class="categorias-filtro">
+    <h3>Filtrar por Categoria:</h3>
+    <a href="{% url 'index' %}" class="{% if not categoria_selecionada %}ativo{% endif %}">Todas</a>
+    {% for cat in categorias %}
+        <a href="{% url 'index' %}?categoria={{ cat.id }}" 
+           class="{% if categoria_selecionada == cat.id %}ativo{% endif %}">
+           {{ cat.nome }}
+        </a>
+    {% endfor %}
+</div>
+
+<input type="text" id="busca" placeholder="Buscar por título">
+<button>Buscar</button>
+<p id="mensagem-vazio" style="display: none; color: red; font-weight: bold;">Nenhum evento encontrado</p>
+
+<div class="eventos-grid">
+    {% for evento in eventos %}
+        <!-- Adicionado o data-inicio com o formato ISO que o JS entende -->
+        <div class="card" data-inicio="{{ evento.data.isoformat }}"></div>
+            <h2>{{ evento.titulo }}</h2>
+            <p><strong>Data:</strong> {{ evento.data|date:"d/m/Y H:i" }}</p>
+            
+            <!-- Linha adicionada para exibir a contagem regressiva -->
+            <p class="texto-contador" style="color: #666; font-style: italic;">Calculando...</p>
+            
+            <p><strong>Local:</strong> <a href="{% url 'local' evento.local.pk %}">{{ evento.local.nome }}</a></p>
+            <p><strong>Categorias:</strong> 
+                {% for cat in evento.categorias.all %}
+                    <span class="badge">{{ cat.nome }}</span>
+                {% endfor %}
+            </p>
+            <a href="{% url 'detalhe' evento.pk %}" class="btn">Ver Detalhes</a>
+        </div>
+    {% empty %}
+        <p>Nenhum evento futuro encontrado.</p>
+    {% endfor %}
+</div>
+<script src="{% static 'js/main.js' %}"></script>
+{% endblock %}

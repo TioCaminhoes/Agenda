@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ evento.titulo }}{% endblock %}
+
+{% block content %}
+<article class="evento-detalhe">
+    <h1>{{ evento.titulo }}</h1>
+    <p><strong>Data:</strong> {{ evento.data|date:"d/m/Y H:i" }}</p>
+    <p><strong>Vagas Restantes:</strong> {{ evento.vagas_restantes }}</p>
+
+    <!-- Exibição Condicional do Relatório -->
+    {% if evento.relatorio %}
+        <section class="relatorio-box">
+            <h2>Relatório do Evento</h2>
+            <p>{{ evento.relatorio }}</p>
+        </section>
+    {% endif %}
+    <button class="esconder-atividades">Ocultar Atividades</button>
+    <!-- Listagem de Atividades com Loop e Verificação Empty -->
+    <section class="atividades-box">
+        <h2>Programação / Atividades</h2>
+        <ul>
+            {% for atividade in evento.atividades.all %}
+                <li>
+                    <strong>{{ atividade.nome }}</strong> - {{ atividade.horario|date:"H:i" }}
+                    <p>{{ atividade.descricao }}</p>
+                </li>
+            {% empty %}
+                <li><em>Nenhuma atividade cadastrada para este evento ainda.</em></li>
+            {% endfor %}
+        </ul>
+    </section>
+
+    <p><a href="{% url 'index' %}" class="btn-voltar">&larr; Voltar para a listagem</a></p>
+</article>
+{% endblock %}
