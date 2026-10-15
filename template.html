@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<header><h1>Cabeçalho</h1></header>
+<div>
+    <h3>Filtragens</h3>
+    <a>conteudo</a>
+    <a>conteudo</a>
+    <button id="botao" onclick="mudarCor()">Mudar Cor</button>
+</div>
+<script>
+    const header = document.querySelector('header');
+    const botao = document.querySelector('#botao');
+    header.style.color = 'red';
+    function mudarCor() {
+        if (header.style.color == 'red') {
+            header.style.color = 'green';
+            botao.textContent = 'Mudar Cor para vermelho';
+
+        } else {
+            header.style.color = 'red';
+            botao.textContent = 'Mudar Cor para verde';
+        }
+    }
+</script>
+</html>

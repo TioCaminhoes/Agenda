@@ -1,35 +1,19 @@
 
 function buscar() {
-    var campo = document.getElementById('busca');
-    var texto = campo.value.toLowerCase();
-    var cards = document.querySelectorAll('.card');
-    var mensagem = document.getElementById('mensagem-vazio');
-    var achou = false;
+   const busca = document.getElementById('busca').value.toLowerCase();
+   const mensagemVazio = document.getElementById('mensagem-vazio')
+   const card = document.querySelectorAll('.card')
 
-    for (var i = 0; i < cards.length; i++) {
-        var titulo = cards[i].querySelector('h2').textContent.toLowerCase();
-
-        if (titulo.includes(texto)) {
-            cards[i].style.display = 'block';
-            achou = true;
-        } else {
-            cards[i].style.display = 'none';
-        }
-    }
-
-    if (achou) {
-        mensagem.style.display = 'none';
-    } else {
-        mensagem.style.display = 'block';
-    }
+   for (let i = 0; i < card.length; i++) {
+       if (card[i].textContent.toLowerCase().includes(busca)) {
+           card[i].style.display = 'block';
+           mensagemVazio.style.display = 'none';
+       } else {
+           card[i].style.display = 'none';
+           mensagemVazio.style.display = 'block';
+       }
+   }
 }
-
-var campoBusca = document.getElementById('busca');
-if (campoBusca) {
-    campoBusca.addEventListener('input', buscar);
-}
-
-
 // ===== CONTAGEM REGRESSIVA =====
 function contar(card) {
     var texto = card.querySelector('.texto-contador');
@@ -62,19 +46,18 @@ for (var j = 0; j < todosCards.length; j++) {
     contar(todosCards[j]);
 }
 
+//botao ocultar atividades
 
-// ===== BOTÃO OCULTAR ATIVIDADES =====
-var botao = document.querySelector('.esconder-atividades');
-var caixa = document.querySelector('.atividades-box');
+function ocultarAtividades() {
+    const atividades = document.querySelector('.atividades-box');
+    const texto = document.getElementById('atividades');
+    if (atividades.style.display == 'none') {
+        atividades.style.display = 'block';
+        texto.textContent = 'Ocultar Atividades';
 
-if (botao && caixa) {
-    botao.addEventListener('click', function () {
-        if (caixa.style.display === 'none') {
-            caixa.style.display = 'block';
-            botao.textContent = 'Ocultar Atividades';
-        } else {
-            caixa.style.display = 'none';
-            botao.textContent = 'Mostrar Atividades';
-        }
-    });
+    } else {
+        atividades.style.display = 'none';
+        texto.textContent = 'Mostrar Atividades';
+    }
+    
 }
